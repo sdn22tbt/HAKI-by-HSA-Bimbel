@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Belajar Perkalian</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg,#087cba,#173b83);
+  text-align: center;
+  padding: 20px;
+  color: white;
+}
+.card {
+  background: white;
+  color: #173b83;
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 25px;
+  border-radius: 20px;
+}
+button {
+  padding: 15px;
+  margin: 7px;
+  width: 40%;
+  border: none;
+  border-radius: 12px;
+  background: #ffca28;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+button:hover { background: #ffa000; }
+#soal { font-size: 35px; font-weight: bold; }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <h2>🎓 HSA Bimbel</h2>
+  <h3>GAME HAFALAN PERKALIAN</h3>
+
+  <p id="skor">Skor: 0</p>
+  <div id="soal">2 × 3 = ?</div>
+  <div id="pilihan"></div>
+  <h3 id="hasil">Pilih jawabanmu!</h3>
+  <button onclick="buatSoal()">Soal Berikutnya</button>
+</div>
+
+<script>
+let angka1, angka2, jawaban;
+let skor = 0;
+
+function buatSoal() {
+  angka1 = Math.ceil(Math.random() * 10);
+  angka2 = Math.ceil(Math.random() * 10);
+  jawaban = angka1 * angka2;
+
+  document.getElementById("soal").innerText =
+    `${angka1} × ${angka2} = ?`;
+
+  document.getElementById("hasil").innerText =
+    "Pilih jawabanmu!";
+
+  let opsi = [jawaban,
+    jawaban + 2,
+    Math.max(0, jawaban - 2),
+    jawaban + 5
+  ];
+
+  opsi.sort(() => Math.random() - 0.5);
+
+  document.getElementById("pilihan").innerHTML = "";
+
+  opsi.forEach(n => {
+    let btn = document.createElement("button");
+    btn.innerText = n;
+    btn.onclick = () => periksa(n);
+    document.getElementById("pilihan").appendChild(btn);
+  });
+}
+
+function periksa(n) {
+  if(n === jawaban) {
+    skor += 10;
+    document.getElementById("hasil").innerText =
+      "🎉 BENAR! Hebat sekali!";
+  } else {
+    document.getElementById("hasil").innerText =
+      "❌ Belum tepat. Coba lagi!";
+  }
+  document.getElementById("skor").innerText =
+    "Skor: " + skor;
+}
+
+buatSoal();
+</script>
+
+</body>
+</html>
